@@ -10,26 +10,40 @@
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Atlas">
+<meta name="apple-mobile-web-app-title" content="Mundo">
 
-<title>Atlas · Explora el mundo</title>
+<title>Mundo · Explora la humanidad</title>
 
 <style>
 
+/* =========================================================
+   VARIABLES
+========================================================= */
+
 :root{
-  --bg:#f3efe7;
-  --paper:#fffdf8;
+  --bg:#f3f0e9;
+  --paper:#fbfaf6;
+  --paper2:#ebe5d9;
+
   --text:#20201d;
-  --muted:#7b776e;
-  --line:#ddd6ca;
-  --dark:#20201d;
-  --sand:#d8c8ad;
-  --olive:#78805d;
-  --red:#9d5145;
-  --blue:#667b8c;
-  --gold:#ba9257;
-  --shadow:0 16px 45px rgba(35,29,20,.10);
+  --muted:#77736b;
+  --line:#d8d1c4;
+
+  --dark:#1f211e;
+  --green:#68725b;
+  --brown:#8b735a;
+  --red:#9c5549;
+  --blue:#667d8c;
+  --gold:#af8750;
+
+  --radius:26px;
+  --shadow:0 18px 55px rgba(36,31,23,.09);
 }
+
+
+/* =========================================================
+   GENERAL
+========================================================= */
 
 *{
   box-sizing:border-box;
@@ -44,6 +58,7 @@ body{
   margin:0;
   background:var(--bg);
   color:var(--text);
+
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -61,186 +76,356 @@ button{
   cursor:pointer;
 }
 
+img{
+  display:block;
+}
+
+.hidden{
+  display:none !important;
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
 .app{
   min-height:100vh;
   padding-bottom:110px;
 }
 
-/* ==========================================
-   HERO
-========================================== */
+.screen{
+  display:none;
+}
+
+.screen.active{
+  display:block;
+}
+
+
+/* =========================================================
+   HERO PRINCIPAL
+========================================================= */
 
 .hero{
-  min-height:530px;
   position:relative;
-  overflow:hidden;
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(0,0,0,.08),
-      rgba(0,0,0,.38)
-    ),
-    url("https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1400&q=85")
-    center/cover;
-  color:white;
+
+  min-height:620px;
+
   padding:
-    calc(env(safe-area-inset-top) + 30px)
-    22px
-    30px;
+    calc(env(safe-area-inset-top) + 28px)
+    20px
+    34px;
+
+  color:#fff;
+
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.07),
+      rgba(0,0,0,.16) 40%,
+      rgba(0,0,0,.74)
+    ),
+    url("https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1600&q=88")
+    center/cover;
+
+  overflow:hidden;
 }
 
 .hero-top{
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
 }
 
 .logo{
   font-family:Georgia,serif;
-  font-size:24px;
-  letter-spacing:.04em;
+  font-size:25px;
+  letter-spacing:.03em;
 }
 
-.hero-circle{
-  width:43px;
-  height:43px;
-  border:1px solid rgba(255,255,255,.6);
+.hero-actions{
+  display:flex;
+  gap:9px;
+}
+
+.circle-btn{
+  width:45px;
+  height:45px;
+
   border-radius:50%;
-  background:rgba(255,255,255,.12);
+
+  border:1px solid rgba(255,255,255,.5);
+
+  background:rgba(255,255,255,.13);
   color:white;
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+
+  backdrop-filter:blur(13px);
+  -webkit-backdrop-filter:blur(13px);
+
+  font-size:19px;
 }
 
-.hero-content{
+.hero-copy{
   max-width:650px;
 }
 
-.eyebrow{
+.kicker{
+  margin-bottom:13px;
+
+  font-size:10px;
+  font-weight:800;
+
+  letter-spacing:.23em;
+
   text-transform:uppercase;
-  font-size:11px;
-  letter-spacing:.24em;
-  font-weight:700;
-  margin-bottom:14px;
 }
 
 .hero h1{
-  font-family:Georgia,serif;
-  font-size:53px;
-  line-height:.92;
-  font-weight:400;
   margin:0 0 18px;
+
+  max-width:550px;
+
+  font-family:Georgia,serif;
+  font-size:57px;
+  font-weight:400;
+
+  line-height:.92;
 }
 
 .hero p{
+  max-width:500px;
+
   margin:0;
-  max-width:470px;
-  font-size:16px;
+
+  font-size:15px;
   line-height:1.55;
-  opacity:.9;
+
+  color:rgba(255,255,255,.85);
 }
 
-.explore-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:12px;
-  margin-top:24px;
-  padding:13px 18px;
-  border-radius:100px;
-  border:0;
-  background:white;
-  color:#25231f;
-  font-weight:600;
+
+/* =========================================================
+   HERO EXPLORAR
+========================================================= */
+
+.hero-explore{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+
+  margin-top:25px;
 }
 
-/* ==========================================
-   CONTENT
-========================================== */
+.hero-mode{
+  padding:14px;
 
-.main{
-  width:min(100%,850px);
+  border-radius:17px;
+
+  border:1px solid rgba(255,255,255,.25);
+
+  background:rgba(255,255,255,.12);
+
+  color:white;
+
+  text-align:left;
+
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+
+.hero-mode-icon{
+  font-size:20px;
+  margin-bottom:11px;
+}
+
+.hero-mode strong{
+  display:block;
+  margin-bottom:3px;
+}
+
+.hero-mode small{
+  color:rgba(255,255,255,.65);
+}
+
+
+/* =========================================================
+   CONTENIDO
+========================================================= */
+
+.content{
+  width:min(100%,900px);
   margin:auto;
-  padding:32px 18px;
+
+  padding:32px 17px;
+}
+
+.section{
+  margin-bottom:46px;
 }
 
 .section-head{
   display:flex;
   justify-content:space-between;
   align-items:flex-end;
-  gap:20px;
+
+  gap:15px;
+
   margin-bottom:20px;
 }
 
-.section-label{
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.2em;
+.section-eyebrow{
   font-size:10px;
   font-weight:800;
+
+  text-transform:uppercase;
+
+  letter-spacing:.19em;
+
+  color:var(--muted);
 }
 
 .section-title{
+  margin:5px 0 0;
+
   font-family:Georgia,serif;
+
   font-size:32px;
   font-weight:400;
-  margin:5px 0 0;
 }
 
-.section-link{
-  font-size:13px;
+.section-action{
+  border:0;
+  background:none;
+
   color:var(--muted);
+
+  font-size:12px;
 }
 
-/* ==========================================
-   SEARCH
-========================================== */
 
-.search{
+/* =========================================================
+   BUSCADOR
+========================================================= */
+
+.global-search{
   display:flex;
   align-items:center;
+
+  padding:6px;
+
   background:var(--paper);
+
   border:1px solid var(--line);
-  padding:5px 6px 5px 17px;
   border-radius:100px;
-  margin-bottom:34px;
-  box-shadow:0 8px 30px rgba(0,0,0,.035);
+
+  box-shadow:0 10px 35px rgba(0,0,0,.035);
 }
 
-.search span{
-  margin-right:9px;
+.search-icon{
+  margin-left:12px;
+  margin-right:8px;
 }
 
-.search input{
+.global-search input{
   flex:1;
-  border:none;
-  outline:none;
-  background:transparent;
+
   min-width:0;
-  padding:10px 0;
+
+  padding:11px 0;
+
+  border:0;
+  outline:none;
+
+  background:transparent;
+
+  font-size:14px;
 }
 
-.search button{
+.search-go{
+  width:43px;
+  height:43px;
+
   border:0;
+  border-radius:50%;
+
   background:var(--dark);
   color:white;
-  width:42px;
-  height:42px;
-  border-radius:50%;
 }
 
-/* ==========================================
-   CONTINENTS
-========================================== */
+
+/* =========================================================
+   EXPLORADORES
+========================================================= */
+
+.explore-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px;
+}
+
+.explore-card{
+  min-height:170px;
+
+  padding:18px;
+
+  border:1px solid var(--line);
+  border-radius:23px;
+
+  background:var(--paper);
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+
+  text-align:left;
+}
+
+.explore-card.dark{
+  color:white;
+  background:var(--dark);
+  border-color:var(--dark);
+}
+
+.explore-icon{
+  font-size:26px;
+}
+
+.explore-name{
+  font-family:Georgia,serif;
+  font-size:24px;
+}
+
+.explore-description{
+  margin-top:6px;
+
+  color:var(--muted);
+
+  font-size:12px;
+  line-height:1.4;
+}
+
+.explore-card.dark .explore-description{
+  color:#aaa;
+}
+
+
+/* =========================================================
+   CONTINENTES
+========================================================= */
 
 .chips{
   display:flex;
   gap:8px;
-  overflow-x:auto;
-  padding-bottom:5px;
-  margin-bottom:25px;
+
+  overflow:auto;
+
+  padding-bottom:4px;
+
   scrollbar-width:none;
 }
 
@@ -249,11 +434,15 @@ button{
 }
 
 .chip{
-  white-space:nowrap;
-  border:1px solid var(--line);
-  background:transparent;
+  flex:none;
+
   padding:10px 15px;
+
+  border:1px solid var(--line);
   border-radius:100px;
+
+  background:transparent;
+
   color:var(--muted);
 }
 
@@ -263,54 +452,82 @@ button{
   border-color:var(--dark);
 }
 
-/* ==========================================
-   COUNTRY CARDS
-========================================== */
+
+/* =========================================================
+   PAÍSES
+========================================================= */
 
 .country-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
+  grid-template-columns:1fr 1fr;
+
+  gap:12px;
+
+  margin-top:18px;
 }
 
-.country{
+.country-card{
   position:relative;
+
   min-height:245px;
+
   border-radius:24px;
+
   overflow:hidden;
+
   box-shadow:var(--shadow);
-  cursor:pointer;
 }
 
-.country.large{
+.country-card.big{
   grid-column:1/-1;
-  min-height:360px;
+  min-height:355px;
 }
 
-.country img{
+.country-card img{
   position:absolute;
+  inset:0;
+
   width:100%;
   height:100%;
+
   object-fit:cover;
 }
 
-.country::after{
+.country-card::after{
   content:"";
+
   position:absolute;
   inset:0;
-  background:linear-gradient(
-    transparent 35%,
-    rgba(0,0,0,.70)
-  );
+
+  background:
+    linear-gradient(
+      transparent 35%,
+      rgba(0,0,0,.75)
+    );
 }
 
-.country-info{
+.country-content{
   position:absolute;
+
   z-index:2;
+
+  bottom:18px;
   left:18px;
   right:18px;
-  bottom:18px;
+
   color:white;
+}
+
+.country-region{
+  margin-bottom:6px;
+
+  font-size:9px;
+  font-weight:700;
+
+  text-transform:uppercase;
+  letter-spacing:.17em;
+
+  opacity:.7;
 }
 
 .country-name{
@@ -318,550 +535,1042 @@ button{
   font-size:28px;
 }
 
-.country-meta{
-  font-size:12px;
-  margin-top:5px;
-  opacity:.8;
+.country-info{
+  margin-top:6px;
+
+  font-size:11px;
+
+  color:rgba(255,255,255,.7);
 }
 
-/* ==========================================
-   CATEGORY CARDS
-========================================== */
 
-.categories{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
+/* =========================================================
+   HISTORIA DESTACADA
+========================================================= */
 
-.category{
-  padding:22px;
-  background:var(--paper);
-  border-radius:24px;
-  border:1px solid var(--line);
-  display:grid;
-  grid-template-columns:54px 1fr auto;
-  align-items:center;
-  gap:16px;
-}
-
-.cat-icon{
-  width:54px;
-  height:54px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  font-size:23px;
-  background:#ede8dd;
-}
-
-.cat-title{
-  font-family:Georgia,serif;
-  font-size:22px;
-}
-
-.cat-text{
-  margin-top:4px;
-  font-size:13px;
-  line-height:1.4;
-  color:var(--muted);
-}
-
-.arrow{
-  font-size:22px;
-  color:var(--muted);
-}
-
-/* ==========================================
-   FEATURE
-========================================== */
-
-.feature{
-  margin-top:42px;
-  border-radius:28px;
-  overflow:hidden;
-  background:#222;
-  color:white;
-  position:relative;
-}
-
-.feature-img{
-  height:270px;
-  width:100%;
-  object-fit:cover;
-  opacity:.78;
-}
-
-.feature-content{
-  padding:24px;
-}
-
-.feature-tag{
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.2em;
-  opacity:.6;
-}
-
-.feature h2{
-  font-family:Georgia,serif;
-  font-size:30px;
-  font-weight:400;
-  margin:9px 0;
-}
-
-.feature p{
-  line-height:1.5;
-  opacity:.75;
-  margin:0;
-}
-
-/* ==========================================
-   COUNTRY DETAIL
-========================================== */
-
-.detail{
-  display:none;
-  min-height:100vh;
-  background:var(--bg);
-  position:fixed;
-  z-index:50;
-  inset:0;
-  overflow-y:auto;
-}
-
-.detail.show{
+story{
   display:block;
 }
 
-.detail-hero{
-  height:440px;
+.story{
   position:relative;
+
+  min-height:430px;
+
+  border-radius:28px;
+
+  overflow:hidden;
+}
+
+.story img{
+  position:absolute;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+}
+
+.story::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    transparent 25%,
+    rgba(0,0,0,.82)
+  );
+}
+
+.story-copy{
+  position:absolute;
+
+  z-index:2;
+
+  left:21px;
+  right:21px;
+  bottom:23px;
+
   color:white;
+}
+
+.story-tag{
+  font-size:9px;
+  font-weight:700;
+
+  letter-spacing:.17em;
+
+  text-transform:uppercase;
+
+  opacity:.65;
+}
+
+.story h3{
+  margin:7px 0 9px;
+
+  font-family:Georgia,serif;
+  font-size:30px;
+  font-weight:400;
+}
+
+.story p{
+  margin:0;
+
+  color:rgba(255,255,255,.75);
+
+  font-size:13px;
+  line-height:1.5;
+}
+
+
+/* =========================================================
+   DESCUBRIMIENTO
+========================================================= */
+
+.discovery{
+  padding:25px;
+
+  border-radius:27px;
+
+  background:#d8ccba;
+}
+
+.discovery-icon{
+  font-size:27px;
+}
+
+.discovery h3{
+  margin:13px 0 9px;
+
+  font-family:Georgia,serif;
+  font-size:28px;
+  font-weight:400;
+}
+
+.discovery p{
+  color:#5d574f;
+
+  line-height:1.5;
+
+  font-size:14px;
+}
+
+.primary-btn{
+  border:0;
+
+  margin-top:7px;
+
+  padding:13px 18px;
+
+  border-radius:100px;
+
+  background:var(--dark);
+  color:white;
+}
+
+
+/* =========================================================
+   PANTALLA PAÍS
+========================================================= */
+
+.country-screen{
+  min-height:100vh;
+}
+
+.country-hero{
+  min-height:530px;
+
+  position:relative;
+
+  padding:
+    calc(env(safe-area-inset-top) + 22px)
+    18px
+    27px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+
+  color:white;
+
   background:
-    linear-gradient(transparent,rgba(0,0,0,.7)),
-    url("https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1300&q=85")
+    linear-gradient(
+      transparent 30%,
+      rgba(0,0,0,.73)
+    ),
+    url("https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=1400&q=90")
     center/cover;
 }
 
-.back{
-  position:absolute;
-  top:calc(env(safe-area-inset-top) + 18px);
-  left:18px;
-  z-index:2;
-  width:45px;
-  height:45px;
+.country-top{
+  display:flex;
+  justify-content:space-between;
+}
+
+.back-btn{
+  width:44px;
+  height:44px;
+
   border-radius:50%;
-  border:1px solid rgba(255,255,255,.55);
+  border:1px solid rgba(255,255,255,.5);
+
+  background:rgba(0,0,0,.2);
+
   color:white;
-  background:rgba(0,0,0,.22);
+
   backdrop-filter:blur(10px);
+
+  font-size:20px;
 }
 
-.detail-heading{
-  position:absolute;
-  bottom:28px;
-  left:22px;
-}
+.country-hero-label{
+  margin-bottom:8px;
 
-.detail-heading small{
-  letter-spacing:.2em;
+  font-size:10px;
+
+  letter-spacing:.18em;
+
   text-transform:uppercase;
+
+  opacity:.75;
 }
 
-.detail-heading h1{
+.country-hero h1{
+  margin:0;
+
   font-family:Georgia,serif;
+
+  font-size:65px;
   font-weight:400;
-  font-size:58px;
-  margin:7px 0 0;
+
+  line-height:.9;
 }
 
-.detail-body{
-  width:min(100%,850px);
-  padding:28px 18px 100px;
-  margin:auto;
+.country-hero p{
+  margin:14px 0 0;
+
+  max-width:450px;
+
+  font-size:14px;
+  line-height:1.5;
+
+  color:rgba(255,255,255,.8);
 }
 
-.quick-stats{
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:9px;
-  margin-bottom:32px;
+
+  gap:8px;
+
+  margin-bottom:28px;
 }
 
 .stat{
-  background:var(--paper);
+  padding:14px 10px;
+
   border:1px solid var(--line);
-  padding:15px 11px;
   border-radius:18px;
+
+  background:var(--paper);
 }
 
 .stat small{
   display:block;
-  color:var(--muted);
-  font-size:10px;
+
   margin-bottom:6px;
+
+  color:var(--muted);
+
+  font-size:9px;
 }
 
 .stat strong{
   font-family:Georgia,serif;
-  font-size:17px;
-  font-weight:500;
+  font-size:16px;
+  font-weight:400;
 }
 
-/* ==========================================
-   DETAIL NAV
-========================================== */
 
-.detail-tabs{
-  display:flex;
+/* =========================================================
+   PAÍS MENÚ
+========================================================= */
+
+.country-menu{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+
   gap:8px;
-  overflow:auto;
-  scrollbar-width:none;
-  margin-bottom:26px;
+
+  margin-bottom:35px;
 }
 
-.detail-tabs::-webkit-scrollbar{
-  display:none;
-}
+.country-menu-btn{
+  padding:13px 5px;
 
-.detail-tab{
   border:1px solid var(--line);
-  background:transparent;
-  border-radius:100px;
-  padding:11px 15px;
-  white-space:nowrap;
-}
-
-.detail-tab.active{
-  color:white;
-  background:var(--dark);
-  border-color:var(--dark);
-}
-
-/* ==========================================
-   ARTICLE
-========================================== */
-
-.article{
-  background:var(--paper);
-  border:1px solid var(--line);
-  padding:24px;
-  border-radius:25px;
-  margin-bottom:15px;
-}
-
-.article-number{
-  color:var(--red);
-  font-size:11px;
-  letter-spacing:.14em;
-  font-weight:700;
-}
-
-.article h3{
-  font-family:Georgia,serif;
-  font-size:27px;
-  font-weight:400;
-  margin:8px 0 12px;
-}
-
-.article p{
-  color:#5d5952;
-  font-size:15px;
-  line-height:1.65;
-  margin:0;
-}
-
-/* ==========================================
-   DAY IN LIFE
-========================================== */
-
-.life-card{
-  background:#262722;
-  color:white;
-  border-radius:28px;
-  padding:25px;
-  margin-bottom:15px;
-}
-
-.life-person{
-  display:flex;
-  gap:13px;
-  align-items:center;
-  margin-bottom:21px;
-}
-
-.avatar{
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  background:#ddd;
-  overflow:hidden;
-}
-
-.avatar img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.life-person strong{
-  display:block;
-}
-
-.life-person span{
-  font-size:12px;
-  opacity:.6;
-}
-
-.timeline{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-}
-
-.timeline-item{
-  display:grid;
-  grid-template-columns:46px 1fr;
-  gap:12px;
-}
-
-.timeline-time{
-  font-size:11px;
-  opacity:.5;
-  padding-top:2px;
-}
-
-.timeline-text{
-  font-size:14px;
-  line-height:1.45;
-}
-
-/* ==========================================
-   TREASURES
-========================================== */
-
-.treasures{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.treasure{
-  background:var(--paper);
-  border-radius:20px;
-  overflow:hidden;
-  border:1px solid var(--line);
-}
-
-.treasure img{
-  width:100%;
-  height:145px;
-  object-fit:cover;
-}
-
-.treasure-info{
-  padding:15px;
-}
-
-.treasure-type{
-  color:var(--muted);
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-}
-
-.treasure-title{
-  font-family:Georgia,serif;
-  font-size:18px;
-  margin-top:4px;
-}
-
-/* ==========================================
-   RANDOM BUTTON
-========================================== */
-
-.random{
-  background:var(--sand);
-  padding:27px;
-  border-radius:26px;
-  margin-top:40px;
-}
-
-.random h3{
-  font-family:Georgia,serif;
-  font-size:28px;
-  margin:0 0 8px;
-  font-weight:400;
-}
-
-.random p{
-  color:#5e584e;
-  line-height:1.5;
-}
-
-.random button{
-  margin-top:9px;
-  padding:13px 17px;
-  border:0;
-  border-radius:100px;
-  background:var(--dark);
-  color:white;
-}
-
-/* ==========================================
-   BOTTOM NAV
-========================================== */
-
-.bottom-nav{
-  position:fixed;
-  z-index:20;
-  bottom:15px;
-  left:50%;
-  transform:translateX(-50%);
-  width:calc(100% - 28px);
-  max-width:600px;
-  background:rgba(30,30,28,.93);
-  border-radius:25px;
-  padding:8px;
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  box-shadow:0 16px 45px rgba(0,0,0,.25);
-}
-
-.nav-btn{
-  border:0;
-  background:transparent;
-  color:#96968f;
-  padding:8px 0;
   border-radius:17px;
+
+  background:var(--paper);
+
+  font-size:10px;
+
+  color:var(--muted);
+}
+
+.country-menu-btn span{
+  display:block;
+
+  margin-bottom:6px;
+
+  font-size:19px;
+}
+
+
+/* =========================================================
+   TARJETAS ITALIA
+========================================================= */
+
+.feature-row{
   display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:4px;
-  font-size:9px;
+  gap:11px;
+
+  overflow-x:auto;
+
+  padding-bottom:7px;
+
+  scrollbar-width:none;
 }
 
-.nav-btn span:first-child{
-  font-size:20px;
-}
-
-.nav-btn.active{
-  color:white;
-  background:rgba(255,255,255,.10);
-}
-
-/* ==========================================
-   VIEW
-========================================== */
-
-.view{
+.feature-row::-webkit-scrollbar{
   display:none;
 }
 
-.view.active{
-  display:block;
-}
+.feature-card{
+  flex:0 0 77%;
 
-.view-page{
-  min-height:100vh;
-  width:min(100%,850px);
-  margin:auto;
-  padding:
-    calc(env(safe-area-inset-top) + 40px)
-    18px
-    120px;
-}
+  min-height:300px;
 
-.page-kicker{
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.2em;
-  font-size:10px;
-}
-
-.page-title{
-  font-family:Georgia,serif;
-  font-size:47px;
-  font-weight:400;
-  line-height:1;
-  margin:8px 0 10px;
-}
-
-.page-intro{
-  color:var(--muted);
-  line-height:1.6;
-  margin-bottom:32px;
-}
-
-.big-story{
   position:relative;
-  height:410px;
+
+  border-radius:24px;
+
   overflow:hidden;
-  border-radius:28px;
-  margin-bottom:15px;
 }
 
-.big-story img{
+.feature-card img{
+  position:absolute;
+
   width:100%;
   height:100%;
+
   object-fit:cover;
 }
 
-.big-story::after{
+.feature-card::after{
   content:"";
+
   position:absolute;
   inset:0;
+
   background:linear-gradient(
     transparent 40%,
-    rgba(0,0,0,.8)
+    rgba(0,0,0,.83)
   );
 }
 
-.big-story-content{
+.feature-info{
   position:absolute;
+
   z-index:2;
-  left:22px;
-  right:22px;
-  bottom:22px;
+
+  left:17px;
+  right:17px;
+  bottom:18px;
+
   color:white;
 }
 
-.big-story-content small{
+.feature-info small{
   text-transform:uppercase;
+
+  letter-spacing:.14em;
+
+  font-size:9px;
+
+  opacity:.65;
+}
+
+.feature-info h3{
+  margin:5px 0 5px;
+
+  font-family:Georgia,serif;
+  font-size:25px;
+  font-weight:400;
+}
+
+.feature-info p{
+  margin:0;
+
+  color:rgba(255,255,255,.7);
+
+  font-size:11px;
+}
+
+
+/* =========================================================
+   MAPA / REGIONES
+========================================================= */
+
+.region-list{
+  display:flex;
+  flex-direction:column;
+
+  gap:10px;
+}
+
+.region{
+  display:grid;
+  grid-template-columns:77px 1fr auto;
+
+  gap:13px;
+
+  align-items:center;
+
+  padding:10px;
+
+  border:1px solid var(--line);
+  border-radius:20px;
+
+  background:var(--paper);
+}
+
+.region img{
+  width:77px;
+  height:77px;
+
+  object-fit:cover;
+
+  border-radius:15px;
+}
+
+.region h4{
+  margin:0 0 4px;
+
+  font-family:Georgia,serif;
+
+  font-size:20px;
+  font-weight:400;
+}
+
+.region p{
+  margin:0;
+
+  color:var(--muted);
+
+  font-size:11px;
+  line-height:1.4;
+}
+
+.region-arrow{
+  padding-right:8px;
+
+  color:var(--muted);
+
+  font-size:20px;
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.timeline{
+  position:relative;
+
+  padding-left:21px;
+}
+
+.timeline::before{
+  content:"";
+
+  position:absolute;
+
+  top:7px;
+  bottom:7px;
+  left:4px;
+
+  width:1px;
+
+  background:var(--line);
+}
+
+.timeline-item{
+  position:relative;
+
+  padding:0 0 27px 14px;
+}
+
+.timeline-item::before{
+  content:"";
+
+  position:absolute;
+
+  left:-21px;
+  top:5px;
+
+  width:9px;
+  height:9px;
+
+  border-radius:50%;
+
+  background:var(--dark);
+
+  border:3px solid var(--bg);
+}
+
+.timeline-date{
+  font-size:9px;
+  font-weight:800;
+
+  color:var(--red);
+
   letter-spacing:.15em;
+
+  text-transform:uppercase;
 }
 
-.big-story-content h2{
-  margin:7px 0;
-  font:400 32px Georgia,serif;
+.timeline-title{
+  margin:6px 0 5px;
+
+  font-family:Georgia,serif;
+
+  font-size:22px;
 }
 
-/* ==========================================
+.timeline-text{
+  color:var(--muted);
+
+  font-size:13px;
+  line-height:1.5;
+}
+
+
+/* =========================================================
+   VIDA
+========================================================= */
+
+.life-story{
+  padding:22px;
+
+  border-radius:25px;
+
+  background:var(--dark);
+
+  color:white;
+}
+
+.person{
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  margin-bottom:22px;
+}
+
+.person-photo{
+  width:48px;
+  height:48px;
+
+  border-radius:50%;
+
+  object-fit:cover;
+}
+
+.person strong{
+  display:block;
+}
+
+.person small{
+  color:#999;
+}
+
+.day{
+  display:flex;
+  flex-direction:column;
+
+  gap:17px;
+}
+
+.day-row{
+  display:grid;
+  grid-template-columns:48px 1fr;
+
+  gap:10px;
+
+  font-size:13px;
+}
+
+.day-time{
+  color:#888;
+}
+
+.day-copy{
+  line-height:1.45;
+}
+
+
+/* =========================================================
+   CULTURA
+========================================================= */
+
+.culture-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  gap:10px;
+}
+
+.culture-card{
+  min-height:190px;
+
+  position:relative;
+
+  border-radius:22px;
+
+  overflow:hidden;
+}
+
+.culture-card img{
+  width:100%;
+  height:100%;
+
+  position:absolute;
+
+  object-fit:cover;
+}
+
+.culture-card::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    transparent 35%,
+    rgba(0,0,0,.75)
+  );
+}
+
+.culture-card-content{
+  position:absolute;
+
+  z-index:2;
+
+  left:14px;
+  right:14px;
+  bottom:14px;
+
+  color:white;
+}
+
+.culture-card-content small{
+  font-size:8px;
+
+  letter-spacing:.13em;
+
+  text-transform:uppercase;
+
+  opacity:.65;
+}
+
+.culture-card-content h4{
+  margin:4px 0 0;
+
+  font-family:Georgia,serif;
+
+  font-size:20px;
+  font-weight:400;
+}
+
+
+/* =========================================================
+   VIAJAR EN EL TIEMPO
+========================================================= */
+
+.time-travel{
+  padding:26px;
+
+  border-radius:28px;
+
+  background:#282923;
+
+  color:white;
+}
+
+.time-travel h3{
+  margin:0;
+
+  font-family:Georgia,serif;
+
+  font-size:29px;
+  font-weight:400;
+}
+
+.time-travel p{
+  color:#aaa;
+
+  font-size:13px;
+  line-height:1.5;
+}
+
+.time-controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  gap:9px;
+
+  margin-top:18px;
+}
+
+.fake-select{
+  padding:13px;
+
+  border-radius:14px;
+
+  border:1px solid #45463e;
+
+  background:#33342e;
+
+  color:white;
+
+  font-size:12px;
+}
+
+.time-go{
+  grid-column:1/-1;
+
+  padding:14px;
+
+  border:0;
+  border-radius:100px;
+
+  background:#fff;
+  color:#222;
+
+  font-weight:600;
+}
+
+
+/* =========================================================
+   PANTALLA DETALLE
+========================================================= */
+
+.detail-screen{
+  min-height:100vh;
+
+  padding-bottom:90px;
+}
+
+.detail-image{
+  position:relative;
+
+  height:440px;
+}
+
+.detail-image img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+}
+
+.detail-image::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    transparent 45%,
+    rgba(0,0,0,.72)
+  );
+}
+
+.detail-back{
+  position:absolute;
+
+  z-index:2;
+
+  top:calc(env(safe-area-inset-top) + 19px);
+  left:17px;
+}
+
+.detail-title{
+  position:absolute;
+
+  z-index:2;
+
+  left:20px;
+  right:20px;
+  bottom:24px;
+
+  color:white;
+}
+
+.detail-title small{
+  text-transform:uppercase;
+
+  font-size:9px;
+
+  letter-spacing:.18em;
+}
+
+.detail-title h1{
+  margin:7px 0 0;
+
+  font:400 45px/1 Georgia,serif;
+}
+
+.article{
+  padding:22px;
+
+  margin-bottom:11px;
+
+  border-radius:23px;
+
+  border:1px solid var(--line);
+
+  background:var(--paper);
+}
+
+.article small{
+  color:var(--red);
+
+  font-weight:700;
+
+  font-size:9px;
+
+  letter-spacing:.15em;
+
+  text-transform:uppercase;
+}
+
+.article h3{
+  margin:8px 0 10px;
+
+  font:400 25px Georgia,serif;
+}
+
+.article p{
+  margin:0;
+
+  color:#5f5b54;
+
+  font-size:14px;
+
+  line-height:1.65;
+}
+
+
+/* =========================================================
+   BOTTOM NAV
+========================================================= */
+
+.bottom-nav{
+  position:fixed;
+
+  z-index:40;
+
+  left:50%;
+  bottom:14px;
+
+  transform:translateX(-50%);
+
+  width:calc(100% - 26px);
+  max-width:600px;
+
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+
+  gap:3px;
+
+  padding:7px;
+
+  border-radius:25px;
+
+  background:rgba(29,30,27,.94);
+
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+
+  box-shadow:0 18px 45px rgba(0,0,0,.24);
+}
+
+.nav-btn{
+  padding:8px 2px;
+
+  border:0;
+  border-radius:17px;
+
+  background:none;
+
+  color:#8f918b;
+
+  font-size:9px;
+}
+
+.nav-btn span{
+  display:block;
+
+  margin-bottom:4px;
+
+  font-size:19px;
+}
+
+.nav-btn.active{
+  background:rgba(255,255,255,.11);
+
+  color:white;
+}
+
+
+/* =========================================================
+   MODAL RANDOM
+========================================================= */
+
+.modal{
+  position:fixed;
+
+  z-index:80;
+
+  inset:0;
+
+  padding:20px;
+
+  display:none;
+
+  align-items:flex-end;
+
+  background:rgba(0,0,0,.48);
+
+  backdrop-filter:blur(5px);
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:min(100%,600px);
+
+  margin:auto;
+
+  padding:25px;
+
+  border-radius:28px;
+
+  background:var(--paper);
+}
+
+.modal-label{
+  color:var(--muted);
+
+  font-size:9px;
+
+  letter-spacing:.17em;
+
+  text-transform:uppercase;
+}
+
+.modal-box h2{
+  margin:7px 0 9px;
+
+  font:400 31px Georgia,serif;
+}
+
+.modal-box p{
+  color:var(--muted);
+
+  line-height:1.5;
+}
+
+.modal-actions{
+  display:flex;
+
+  gap:8px;
+
+  margin-top:20px;
+}
+
+.modal-actions button{
+  flex:1;
+
+  padding:13px;
+
+  border-radius:100px;
+
+  border:1px solid var(--line);
+
+  background:transparent;
+}
+
+.modal-actions .modal-primary{
+  background:var(--dark);
+
+  color:white;
+
+  border-color:var(--dark);
+}
+
+
+/* =========================================================
    DESKTOP
-========================================== */
+========================================================= */
 
 @media(min-width:800px){
 
   .hero{
-    min-height:680px;
-    padding-left:max(40px,calc((100vw - 850px)/2));
-    padding-right:max(40px,calc((100vw - 850px)/2));
+    min-height:700px;
+
+    padding-left:max(40px,calc((100vw - 900px)/2));
+    padding-right:max(40px,calc((100vw - 900px)/2));
   }
 
   .hero h1{
-    font-size:77px;
+    font-size:82px;
+  }
+
+  .hero-explore{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .explore-grid{
+    grid-template-columns:repeat(4,1fr);
   }
 
   .country-grid{
     grid-template-columns:repeat(3,1fr);
   }
 
-  .country.large{
+  .country-card.big{
     grid-column:span 2;
+  }
+
+  .feature-card{
+    flex-basis:42%;
+  }
+
+  .culture-grid{
+    grid-template-columns:repeat(4,1fr);
   }
 
 }
@@ -873,600 +1582,644 @@ button{
 
 <div class="app">
 
-<!-- =================================================
-     INICIO / PAÍSES
-================================================= -->
 
-<div id="countriesView" class="view active">
+<!-- =====================================================
+     INICIO
+===================================================== -->
 
-<section class="hero">
+<section id="homeScreen" class="screen active">
 
-  <div class="hero-top">
-    <div class="logo">Atlas.</div>
-    <button class="hero-circle" onclick="randomCountry()">⌁</button>
-  </div>
+  <header class="hero">
 
-  <div class="hero-content">
+    <div class="hero-top">
 
-    <div class="eyebrow">Descubre el mundo</div>
+      <div class="logo">
+        Mundo.
+      </div>
 
-    <h1>
-      No viajes.<br>
-      Entra.
-    </h1>
+      <div class="hero-actions">
 
-    <p>
-      Comprende un país a través de su historia,
-      su gente, sus canciones, sus películas,
-      su arte y la forma en la que vive.
-    </p>
+        <button class="circle-btn" onclick="focusSearch()">
+          ⌕
+        </button>
 
-    <button
-      class="explore-btn"
-      onclick="document.getElementById('discover').scrollIntoView()"
-    >
-      Explorar el mundo
-      <span>↓</span>
-    </button>
+        <button class="circle-btn" onclick="randomDiscovery()">
+          ✦
+        </button>
 
-  </div>
+      </div>
+
+    </div>
+
+
+    <div class="hero-copy">
+
+      <div class="kicker">
+        Atlas de la humanidad
+      </div>
+
+      <h1>
+        Recorre<br>
+        el mundo.
+      </h1>
+
+      <p>
+        No leas simplemente sobre un país.
+        Entra en sus ciudades, sus calles, su historia,
+        sus canciones, sus cuadros, sus vidas y sus épocas.
+      </p>
+
+
+      <div class="hero-explore">
+
+        <button class="hero-mode" onclick="scrollToExplore()">
+
+          <div class="hero-mode-icon">
+            ◎
+          </div>
+
+          <strong>
+            Lugar
+          </strong>
+
+          <small>
+            Países, ciudades y calles
+          </small>
+
+        </button>
+
+
+        <button class="hero-mode" onclick="showTimeModal()">
+
+          <div class="hero-mode-icon">
+            ◷
+          </div>
+
+          <strong>
+            Tiempo
+          </strong>
+
+          <small>
+            Entra en otra época
+          </small>
+
+        </button>
+
+
+        <button class="hero-mode" onclick="openLife()">
+
+          <div class="hero-mode-icon">
+            ◌
+          </div>
+
+          <strong>
+            Vida
+          </strong>
+
+          <small>
+            Vive como otra persona
+          </small>
+
+        </button>
+
+
+        <button class="hero-mode" onclick="openCulture()">
+
+          <div class="hero-mode-icon">
+            ◈
+          </div>
+
+          <strong>
+            Cultura
+          </strong>
+
+          <small>
+            Arte, música, moda y cine
+          </small>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+
+  <main class="content" id="explore">
+
+
+    <!-- BUSCADOR -->
+
+    <section class="section">
+
+      <div class="global-search">
+
+        <div class="search-icon">
+          ⌕
+        </div>
+
+        <input
+          id="globalSearch"
+          type="search"
+          placeholder="Busca Roma, Botticelli, 1968, jazz..."
+          oninput="performSearch()"
+        >
+
+        <button
+          class="search-go"
+          onclick="performSearch()"
+        >
+          →
+        </button>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- FORMAS DE EXPLORAR -->
+
+    <section class="section">
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="section-eyebrow">
+            No hay un solo camino
+          </div>
+
+          <h2 class="section-title">
+            ¿Cómo quieres entrar?
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="explore-grid">
+
+        <button
+          class="explore-card dark"
+          onclick="document.getElementById('countries').scrollIntoView()"
+        >
+
+          <div class="explore-icon">
+            ◎
+          </div>
+
+          <div>
+
+            <div class="explore-name">
+              Lugar
+            </div>
+
+            <div class="explore-description">
+              Mundo → país → región → ciudad → barrio → calle → edificio.
+            </div>
+
+          </div>
+
+        </button>
+
+
+        <button
+          class="explore-card"
+          onclick="showTimeModal()"
+        >
+
+          <div class="explore-icon">
+            ◷
+          </div>
+
+          <div>
+
+            <div class="explore-name">
+              Tiempo
+            </div>
+
+            <div class="explore-description">
+              Elige un lugar y descubre cómo era en otro momento.
+            </div>
+
+          </div>
+
+        </button>
+
+
+        <button
+          class="explore-card"
+          onclick="openLife()"
+        >
+
+          <div class="explore-icon">
+            ◌
+          </div>
+
+          <div>
+
+            <div class="explore-name">
+              Vida
+            </div>
+
+            <div class="explore-description">
+              Sigue un día cualquiera de personas completamente distintas.
+            </div>
+
+          </div>
+
+        </button>
+
+
+        <button
+          class="explore-card"
+          onclick="openCulture()"
+        >
+
+          <div class="explore-icon">
+            ◈
+          </div>
+
+          <div>
+
+            <div class="explore-name">
+              Cultura
+            </div>
+
+            <div class="explore-description">
+              Arte, arquitectura, música, cine, literatura y moda.
+            </div>
+
+          </div>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- PAÍSES -->
+
+    <section class="section" id="countries">
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="section-eyebrow">
+            El mundo
+          </div>
+
+          <h2 class="section-title">
+            Elige un país
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="chips">
+
+        <button class="chip active">
+          Todo
+        </button>
+
+        <button class="chip">
+          Europa
+        </button>
+
+        <button class="chip">
+          Asia
+        </button>
+
+        <button class="chip">
+          África
+        </button>
+
+        <button class="chip">
+          América
+        </button>
+
+        <button class="chip">
+          Oceanía
+        </button>
+
+      </div>
+
+
+      <div class="country-grid">
+
+
+        <article
+          class="country-card big"
+          onclick="openItaly()"
+        >
+
+          <img
+            src="https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=1200&q=88"
+            alt="Italia"
+          >
+
+          <div class="country-content">
+
+            <div class="country-region">
+              Europa · Mediterráneo
+            </div>
+
+            <div class="country-name">
+              Italia
+            </div>
+
+            <div class="country-info">
+              20 regiones · 7.900+ municipios · más de 2.000 años de historias
+            </div>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="country-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=800&q=86"
+            alt="Japón"
+          >
+
+          <div class="country-content">
+
+            <div class="country-region">
+              Asia Oriental
+            </div>
+
+            <div class="country-name">
+              Japón
+            </div>
+
+            <div class="country-info">
+              Tokio · Kioto · Osaka · Hokkaido
+            </div>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="country-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=800&q=86"
+            alt="Francia"
+          >
+
+          <div class="country-content">
+
+            <div class="country-region">
+              Europa Occidental
+            </div>
+
+            <div class="country-name">
+              Francia
+            </div>
+
+            <div class="country-info">
+              París · Provenza · Bretaña · Alsacia
+            </div>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="country-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?auto=format&fit=crop&w=800&q=86"
+            alt="México"
+          >
+
+          <div class="country-content">
+
+            <div class="country-region">
+              América del Norte
+            </div>
+
+            <div class="country-name">
+              México
+            </div>
+
+            <div class="country-info">
+              Historia · pueblos · ciudades · culturas
+            </div>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="country-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1489493585363-d69421e0edd3?auto=format&fit=crop&w=800&q=86"
+            alt="Marruecos"
+          >
+
+          <div class="country-content">
+
+            <div class="country-region">
+              África del Norte
+            </div>
+
+            <div class="country-name">
+              Marruecos
+            </div>
+
+            <div class="country-info">
+              Marrakech · Fez · Atlas · Sahara
+            </div>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- HISTORIA DEL DÍA -->
+
+    <section class="section">
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="section-eyebrow">
+            Historia del día
+          </div>
+
+          <h2 class="section-title">
+            Viaja sin elegir
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <article
+        class="story"
+        onclick="openDetail(
+          'Roma · 1962',
+          'Una noche de verano en Roma',
+          'TIEMPO · VIDA · CIUDAD',
+          'https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=1200&q=88'
+        )"
+      >
+
+        <img
+          src="https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=1000&q=88"
+        >
+
+        <div class="story-copy">
+
+          <div class="story-tag">
+            Roma · verano de 1962
+          </div>
+
+          <h3>
+            Son las 20:47.
+            ¿Qué está pasando en la ciudad?
+          </h3>
+
+          <p>
+            Qué escucha la gente, cómo viste,
+            cuánto gana, qué coches circulan,
+            qué películas hay en los cines y dónde sale un joven romano.
+          </p>
+
+        </div>
+
+      </article>
+
+    </section>
+
+
+
+    <!-- RANDOM -->
+
+    <section class="section">
+
+      <div class="discovery">
+
+        <div class="discovery-icon">
+          ✦
+        </div>
+
+        <h3>
+          Piérdete.
+        </h3>
+
+        <p>
+          A veces la mejor forma de conocer el mundo
+          es no decidir qué quieres encontrar.
+        </p>
+
+        <button
+          class="primary-btn"
+          onclick="randomDiscovery()"
+        >
+          Llévame a algún lugar →
+        </button>
+
+      </div>
+
+    </section>
+
+
+  </main>
 
 </section>
 
-<main class="main" id="discover">
 
-  <div class="search">
-    <span>⌕</span>
-    <input
-      id="searchCountry"
-      placeholder="Busca un país, ciudad, época..."
-      oninput="filterCountries()"
-    >
-    <button>→</button>
-  </div>
 
-  <div class="section-head">
+<!-- =====================================================
+     ITALIA
+===================================================== -->
+
+<section
+  id="italyScreen"
+  class="screen country-screen"
+>
+
+
+  <!-- HERO -->
+
+  <header class="country-hero">
+
+    <div class="country-top">
+
+      <button
+        class="back-btn"
+        onclick="goHome()"
+      >
+        ←
+      </button>
+
+
+      <button
+        class="back-btn"
+        onclick="randomItaly()"
+      >
+        ✦
+      </button>
+
+    </div>
+
+
     <div>
-      <div class="section-label">01 · Destinos</div>
-      <h2 class="section-title">Elige dónde entrar</h2>
-    </div>
-  </div>
 
-  <div class="chips">
-    <button class="chip active">Todo</button>
-    <button class="chip">Europa</button>
-    <button class="chip">Asia</button>
-    <button class="chip">África</button>
-    <button class="chip">América</button>
-    <button class="chip">Oceanía</button>
-  </div>
-
-  <div class="country-grid" id="countryGrid">
-
-    <div class="country large" data-name="Italia" onclick="openItaly()">
-      <img src="https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=1200&q=85">
-      <div class="country-info">
-        <div class="country-name">Italia</div>
-        <div class="country-meta">Historia · Arte · Moda · Cine</div>
-      </div>
-    </div>
-
-    <div class="country" data-name="Japón">
-      <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=800&q=85">
-      <div class="country-info">
-        <div class="country-name">Japón</div>
-        <div class="country-meta">Asia Oriental</div>
-      </div>
-    </div>
-
-    <div class="country" data-name="Marruecos">
-      <img src="https://images.unsplash.com/photo-1489493585363-d69421e0edd3?auto=format&fit=crop&w=800&q=85">
-      <div class="country-info">
-        <div class="country-name">Marruecos</div>
-        <div class="country-meta">África del Norte</div>
-      </div>
-    </div>
-
-    <div class="country" data-name="Francia">
-      <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=800&q=85">
-      <div class="country-info">
-        <div class="country-name">Francia</div>
-        <div class="country-meta">Europa Occidental</div>
-      </div>
-    </div>
-
-    <div class="country" data-name="México">
-      <img src="https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?auto=format&fit=crop&w=800&q=85">
-      <div class="country-info">
-        <div class="country-name">México</div>
-        <div class="country-meta">América del Norte</div>
-      </div>
-    </div>
-
-  </div>
-
-  <section style="margin-top:50px">
-
-    <div class="section-head">
-      <div>
-        <div class="section-label">02 · Mira diferente</div>
-        <h2 class="section-title">¿Qué quieres descubrir?</h2>
-      </div>
-    </div>
-
-    <div class="categories">
-
-      <div class="category" onclick="changeView('lifeView',1)">
-        <div class="cat-icon">☀️</div>
-        <div>
-          <div class="cat-title">Vida</div>
-          <div class="cat-text">
-            Cómo vive realmente la gente.
-          </div>
-        </div>
-        <div class="arrow">›</div>
+      <div class="country-hero-label">
+        Europa · Mediterráneo
       </div>
 
-      <div class="category" onclick="changeView('musicView',2)">
-        <div class="cat-icon">♫</div>
-        <div>
-          <div class="cat-title">Música</div>
-          <div class="cat-text">
-            Canciones que explican épocas y generaciones.
-          </div>
-        </div>
-        <div class="arrow">›</div>
-      </div>
-
-      <div class="category" onclick="changeView('artView',3)">
-        <div class="cat-icon">◉</div>
-        <div>
-          <div class="cat-title">Arte</div>
-          <div class="cat-text">
-            Obras, artistas y movimientos.
-          </div>
-        </div>
-        <div class="arrow">›</div>
-      </div>
-
-      <div class="category" onclick="changeView('cinemaView',4)">
-        <div class="cat-icon">◫</div>
-        <div>
-          <div class="cat-title">Cine</div>
-          <div class="cat-text">
-            Entender un país desde sus películas.
-          </div>
-        </div>
-        <div class="arrow">›</div>
-      </div>
-
-      <div class="category" onclick="changeView('fashionView',5)">
-        <div class="cat-icon">♢</div>
-        <div>
-          <div class="cat-title">Moda</div>
-          <div class="cat-text">
-            Cómo la historia terminó dentro del armario.
-          </div>
-        </div>
-        <div class="arrow">›</div>
-      </div>
-
-    </div>
-
-  </section>
-
-  <div class="feature">
-
-    <img
-      class="feature-img"
-      src="https://images.unsplash.com/photo-1533676802871-eca1ae998cd5?auto=format&fit=crop&w=1000&q=85"
-    >
-
-    <div class="feature-content">
-
-      <div class="feature-tag">
-        Historia del día
-      </div>
-
-      <h2>
-        ¿Cómo era tener 25 años en 1968?
-      </h2>
+      <h1>
+        Italia
+      </h1>
 
       <p>
-        París, Roma, Praga, México y Tokio.
-        Cinco jóvenes viviendo el mismo año de formas completamente distintas.
+        Un país hecho de ciudades antiguas,
+        pequeños pueblos, imperios,
+        repúblicas, arte, industria,
+        migraciones y formas muy distintas de vivir.
       </p>
 
     </div>
 
-  </div>
+  </header>
 
-  <div class="random">
 
-    <h3>Déjate llevar.</h3>
 
-    <p>
-      No elijas país ni categoría.
-      Abre una historia aleatoria del mundo.
-    </p>
+  <main class="content">
 
-    <button onclick="randomCountry()">
-      Llévame a algún sitio →
-    </button>
 
-  </div>
+    <!-- STATS -->
 
-</main>
-
-</div>
-
-<!-- =================================================
-     VIDA
-================================================= -->
-
-<div id="lifeView" class="view">
-
-<div class="view-page">
-
-  <div class="page-kicker">Historias humanas</div>
-  <h1 class="page-title">Vida.</h1>
-
-  <p class="page-intro">
-    Un país no es su PIB ni sus monumentos.
-    Es despertarse, trabajar, comer, enamorarse,
-    llegar tarde y volver a casa.
-  </p>
-
-  <div class="big-story">
-    <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=900&q=85">
-    <div class="big-story-content">
-      <small>Ciudad vs pueblo</small>
-      <h2>Dos vidas en el mismo México</h2>
-      <div>Ciudad de México · Oaxaca</div>
-    </div>
-  </div>
-
-  <div class="life-card">
-
-    <div class="life-person">
-      <div class="avatar">
-        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80">
-      </div>
-      <div>
-        <strong>Giulia · 27 años</strong>
-        <span>Diseñadora · Milán · clase media</span>
-      </div>
-    </div>
-
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <div class="timeline-time">07:20</div>
-        <div class="timeline-text">
-          Café de pie antes de coger el metro hacia Porta Garibaldi.
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-time">13:15</div>
-        <div class="timeline-text">
-          Sale a comer con dos compañeras. Una hora de pausa sigue siendo normal.
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-time">18:35</div>
-        <div class="timeline-text">
-          Aperitivo con amigos. No es cena, pero podría convertirse en ella.
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-time">23:40</div>
-        <div class="timeline-text">
-          Llega a su pequeño piso compartido al norte de Milán.
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="article">
-    <div class="article-number">OTRA REALIDAD</div>
-    <h3>¿Y si hubieras nacido rica?</h3>
-    <p>
-      Compara cómo puede cambiar una misma ciudad dependiendo del dinero,
-      el barrio, la familia y la profesión.
-    </p>
-  </div>
-
-  <div class="article">
-    <div class="article-number">GENERACIONES</div>
-    <h3>Tener 20 años en 1950, 1980 o 2026</h3>
-    <p>
-      El trabajo, el amor, la familia, la libertad y las expectativas
-      no siempre significaron lo mismo.
-    </p>
-  </div>
-
-</div>
-</div>
-
-<!-- =================================================
-     MUSICA
-================================================= -->
-
-<div id="musicView" class="view">
-
-<div class="view-page">
-
-  <div class="page-kicker">Escucha una cultura</div>
-  <h1 class="page-title">Música.</h1>
-
-  <p class="page-intro">
-    Entra en un país por las canciones que escucharon
-    sus abuelos, sus padres y sus jóvenes.
-  </p>
-
-  <div class="big-story">
-    <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=900&q=85">
-    <div class="big-story-content">
-      <small>Italia · 1958–1980</small>
-      <h2>Cuando Italia cantaba al amor</h2>
-      <div>Sanremo · Mina · Celentano · Battisti</div>
-    </div>
-  </div>
-
-  <div class="article">
-    <div class="article-number">01 · TRADICIÓN</div>
-    <h3>La música que viene de antes</h3>
-    <p>
-      Canciones populares, instrumentos tradicionales, fiestas
-      y sonidos que existían mucho antes de Spotify.
-    </p>
-  </div>
-
-  <div class="article">
-    <div class="article-number">02 · GENERACIONES</div>
-    <h3>¿Qué escuchaba cada generación?</h3>
-    <p>
-      Viaja desde los discos de tus abuelos hasta las canciones
-      que hoy dominan las listas.
-    </p>
-  </div>
-
-  <div class="article">
-    <div class="article-number">03 · CONTEXTO</div>
-    <h3>Canciones que cuentan historia</h3>
-    <p>
-      Protesta, guerra, migración, amor, religión,
-      identidad y revoluciones culturales convertidas en música.
-    </p>
-  </div>
-
-</div>
-</div>
-
-<!-- =================================================
-     ARTE
-================================================= -->
-
-<div id="artView" class="view">
-
-<div class="view-page">
-
-  <div class="page-kicker">Mirar para comprender</div>
-  <h1 class="page-title">Arte.</h1>
-
-  <p class="page-intro">
-    Una ruta visual desde las primeras expresiones
-    artísticas hasta las vanguardias y el arte actual.
-  </p>
-
-  <div class="big-story">
-    <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=900&q=85">
-    <div class="big-story-content">
-      <small>Renacimiento</small>
-      <h2>Florencia cambió nuestra manera de mirar</h2>
-      <div>Italia · siglos XV–XVI</div>
-    </div>
-  </div>
-
-  <div class="treasures">
-
-    <div class="treasure">
-      <img src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=600&q=80">
-      <div class="treasure-info">
-        <div class="treasure-type">Pintura</div>
-        <div class="treasure-title">Movimientos</div>
-      </div>
-    </div>
-
-    <div class="treasure">
-      <img src="https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&w=600&q=80">
-      <div class="treasure-info">
-        <div class="treasure-type">Arquitectura</div>
-        <div class="treasure-title">Ciudades</div>
-      </div>
-    </div>
-
-    <div class="treasure">
-      <img src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=600&q=80">
-      <div class="treasure-info">
-        <div class="treasure-type">Museos</div>
-        <div class="treasure-title">Obras esenciales</div>
-      </div>
-    </div>
-
-    <div class="treasure">
-      <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=600&q=80">
-      <div class="treasure-info">
-        <div class="treasure-type">Personajes</div>
-        <div class="treasure-title">Artistas</div>
-      </div>
-    </div>
-
-  </div>
-
-</div>
-</div>
-
-<!-- =================================================
-     CINE
-================================================= -->
-
-<div id="cinemaView" class="view">
-
-<div class="view-page">
-
-  <div class="page-kicker">Un país en pantalla</div>
-  <h1 class="page-title">Cine.</h1>
-
-  <p class="page-intro">
-    Películas para viajar en el tiempo,
-    descubrir ciudades y entender cómo una sociedad
-    se ha visto a sí misma.
-  </p>
-
-  <div class="big-story">
-    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=900&q=85">
-    <div class="big-story-content">
-      <small>Italia · Posguerra</small>
-      <h2>El país real apareció en el cine</h2>
-      <div>Rossellini · De Sica · Fellini</div>
-    </div>
-  </div>
-
-  <div class="article">
-    <div class="article-number">VER PARA ENTENDER</div>
-    <h3>5 películas para comprender Japón</h3>
-    <p>
-      Una selección no basada solo en “las mejores películas”,
-      sino en las que cuentan algo esencial sobre la sociedad japonesa.
-    </p>
-  </div>
-
-  <div class="article">
-    <div class="article-number">CIUDADES</div>
-    <h3>París a través del cine</h3>
-    <p>
-      La misma ciudad vista desde los años treinta,
-      la Nouvelle Vague, los noventa y la actualidad.
-    </p>
-  </div>
-
-</div>
-</div>
-
-<!-- =================================================
-     MODA
-================================================= -->
-
-<div id="fashionView" class="view">
-
-<div class="view-page">
-
-  <div class="page-kicker">Vestir también es historia</div>
-  <h1 class="page-title">Moda.</h1>
-
-  <p class="page-intro">
-    Por qué vestimos como vestimos,
-    quién rompió las reglas y cómo una prenda
-    puede explicar toda una época.
-  </p>
-
-  <div class="big-story">
-    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=85">
-    <div class="big-story-content">
-      <small>París · siglo XX</small>
-      <h2>Cuando vestirse significaba rebelarse</h2>
-      <div>Chanel · Dior · Saint Laurent</div>
-    </div>
-  </div>
-
-  <div class="article">
-    <div class="article-number">DÉCADAS</div>
-    <h3>1920 → 2020</h3>
-    <p>
-      Recorre cien años de siluetas,
-      peinados, maquillaje, tejidos y códigos sociales.
-    </p>
-  </div>
-
-  <div class="article">
-    <div class="article-number">CALLE</div>
-    <h3>Cómo viste realmente la gente</h3>
-    <p>
-      No solo pasarelas. Universitarios en Seúl,
-      trabajadores en Milán, adolescentes en Londres
-      o familias en Marrakech.
-    </p>
-  </div>
-
-</div>
-</div>
-
-</div>
-
-<!-- =================================================
-     NAVEGACIÓN
-================================================= -->
-
-<nav class="bottom-nav">
-
-  <button class="nav-btn active" onclick="changeView('countriesView',0)">
-    <span>◎</span>
-    <span>Países</span>
-  </button>
-
-  <button class="nav-btn" onclick="changeView('lifeView',1)">
-    <span>☀</span>
-    <span>Vida</span>
-  </button>
-
-  <button class="nav-btn" onclick="changeView('musicView',2)">
-    <span>♫</span>
-    <span>Música</span>
-  </button>
-
-  <button class="nav-btn" onclick="changeView('artView',3)">
-    <span>◉</span>
-    <span>Arte</span>
-  </button>
-
-  <button class="nav-btn" onclick="changeView('cinemaView',4)">
-    <span>◫</span>
-    <span>Cine</span>
-  </button>
-
-  <button class="nav-btn" onclick="changeView('fashionView',5)">
-    <span>♢</span>
-    <span>Moda</span>
-  </button>
-
-</nav>
-
-<!-- =================================================
-     DETALLE ITALIA
-================================================= -->
-
-<section id="countryDetail" class="detail">
-
-  <div class="detail-hero">
-
-    <button class="back" onclick="closeCountry()">←</button>
-
-    <div class="detail-heading">
-      <small>Europa del Sur</small>
-      <h1>Italia</h1>
-    </div>
-
-  </div>
-
-  <div class="detail-body">
-
-    <div class="quick-stats">
+    <div class="stats">
 
       <div class="stat">
         <small>Capital</small>
@@ -1474,259 +2227,1673 @@ button{
       </div>
 
       <div class="stat">
-        <small>Población</small>
-        <strong>~59 M</strong>
+        <small>Regiones</small>
+        <strong>20</strong>
       </div>
 
       <div class="stat">
-        <small>Moneda</small>
-        <strong>Euro</strong>
+        <small>Idioma</small>
+        <strong>Italiano</strong>
       </div>
 
     </div>
 
-    <div class="detail-tabs">
 
-      <button class="detail-tab active">Entender</button>
-      <button class="detail-tab">Historia</button>
-      <button class="detail-tab">Economía</button>
-      <button class="detail-tab">Vida</button>
-      <button class="detail-tab">Música</button>
-      <button class="detail-tab">Arte</button>
-      <button class="detail-tab">Cine</button>
-      <button class="detail-tab">Moda</button>
 
-    </div>
+    <!-- MENÚ -->
 
-    <div class="article">
+    <div class="country-menu">
 
-      <div class="article-number">
-        ITALIA EN 2 MINUTOS
-      </div>
+      <button
+        class="country-menu-btn"
+        onclick="scrollToId('italyPlaces')"
+      >
+        <span>◎</span>
+        Lugares
+      </button>
 
-      <h3>
-        Un país joven con una historia antiquísima.
-      </h3>
+      <button
+        class="country-menu-btn"
+        onclick="scrollToId('italyHistory')"
+      >
+        <span>◷</span>
+        Historia
+      </button>
 
-      <p>
-        Italia como Estado unificado existe desde el siglo XIX,
-        aunque su territorio ha sido escenario de algunas de las
-        civilizaciones más influyentes de Europa: etruscos,
-        romanos, repúblicas marítimas, ciudades-estado
-        y grandes centros del Renacimiento.
-      </p>
+      <button
+        class="country-menu-btn"
+        onclick="scrollToId('italyLife')"
+      >
+        <span>◌</span>
+        Vida
+      </button>
 
-    </div>
+      <button
+        class="country-menu-btn"
+        onclick="scrollToId('italyCulture')"
+      >
+        <span>◈</span>
+        Cultura
+      </button>
 
-    <div class="article">
+      <button class="country-menu-btn">
+        <span>♬</span>
+        Música
+      </button>
 
-      <div class="article-number">
-        CLAVE · NORTE Y SUR
-      </div>
+      <button class="country-menu-btn">
+        <span>▣</span>
+        Cine
+      </button>
 
-      <h3>
-        Una Italia. Muchas Italias.
-      </h3>
+      <button class="country-menu-btn">
+        <span>♢</span>
+        Moda
+      </button>
 
-      <p>
-        Milán no vive como Palermo.
-        Los niveles de industrialización, renta,
-        empleo, costumbres, gastronomía e incluso
-        la relación con el Estado pueden variar
-        considerablemente entre territorios.
-      </p>
-
-    </div>
-
-    <div class="article">
-
-      <div class="article-number">
-        ECONOMÍA
-      </div>
-
-      <h3>
-        Mucho más que moda y turismo.
-      </h3>
-
-      <p>
-        Italia combina grandes empresas industriales
-        con una enorme red de pequeñas y medianas empresas.
-        Automoción, maquinaria, alimentación,
-        lujo, diseño y manufactura siguen teniendo
-        un peso importante en su economía.
-      </p>
+      <button class="country-menu-btn">
+        <span>⌂</span>
+        Comida
+      </button>
 
     </div>
 
-    <div class="life-card">
 
-      <div class="life-person">
-        <div class="avatar">
-          <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=300&q=80">
-        </div>
+
+    <!-- EMPEZAR -->
+
+    <section class="section">
+
+      <div class="section-head">
 
         <div>
-          <strong>Marco · 32 años</strong>
-          <span>Profesor · Bolonia</span>
+
+          <div class="section-eyebrow">
+            Para empezar
+          </div>
+
+          <h2 class="section-title">
+            Cuatro Italias
+          </h2>
+
         </div>
+
       </div>
+
+
+      <div class="feature-row">
+
+
+        <article
+          class="feature-card"
+          onclick="openDetail(
+            'Roma',
+            'La ciudad eterna',
+            'CIUDAD · LAZIO',
+            'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1100&q=88'
+          )"
+        >
+
+          <img
+            src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=900&q=88"
+          >
+
+          <div class="feature-info">
+
+            <small>
+              Ciudad
+            </small>
+
+            <h3>
+              Roma
+            </h3>
+
+            <p>
+              Imperio, papas, barrios,
+              ruinas, plazas, iglesias
+              y vida contemporánea.
+            </p>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="feature-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?auto=format&fit=crop&w=900&q=88"
+          >
+
+          <div class="feature-info">
+
+            <small>
+              Sur
+            </small>
+
+            <h3>
+              Sicilia
+            </h3>
+
+            <p>
+              Griegos, árabes, normandos,
+              volcanes, pueblos y Mediterráneo.
+            </p>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="feature-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1533676802871-eca1ae998cd5?auto=format&fit=crop&w=900&q=88"
+          >
+
+          <div class="feature-info">
+
+            <small>
+              Norte
+            </small>
+
+            <h3>
+              Milán
+            </h3>
+
+            <p>
+              Industria, diseño,
+              finanzas, moda
+              y transformaciones urbanas.
+            </p>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- RECORRER TERRITORIO -->
+
+    <section
+      class="section"
+      id="italyPlaces"
+    >
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="section-eyebrow">
+            Lugar
+          </div>
+
+          <h2 class="section-title">
+            Recorre el territorio
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="region-list">
+
+
+        <article
+          class="region"
+          onclick="openDetail(
+            'Roma',
+            'Roma, capa a capa',
+            'LAZIO · CIUDAD',
+            'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1000&q=88'
+          )"
+        >
+
+          <img
+            src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=400&q=85"
+          >
+
+          <div>
+
+            <h4>
+              Lazio
+            </h4>
+
+            <p>
+              Roma · Tivoli · Viterbo · Ostia · pueblos y costa.
+            </p>
+
+          </div>
+
+          <div class="region-arrow">
+            ›
+          </div>
+
+        </article>
+
+
+
+        <article class="region">
+
+          <img
+            src="https://images.unsplash.com/photo-1544986581-efac024faf62?auto=format&fit=crop&w=400&q=85"
+          >
+
+          <div>
+
+            <h4>
+              Toscana
+            </h4>
+
+            <p>
+              Florencia · Siena · Pisa · Lucca · Val d'Orcia.
+            </p>
+
+          </div>
+
+          <div class="region-arrow">
+            ›
+          </div>
+
+        </article>
+
+
+
+        <article class="region">
+
+          <img
+            src="https://images.unsplash.com/photo-1533676802871-eca1ae998cd5?auto=format&fit=crop&w=400&q=85"
+          >
+
+          <div>
+
+            <h4>
+              Lombardía
+            </h4>
+
+            <p>
+              Milán · Bérgamo · Como · Mantua · industria y lagos.
+            </p>
+
+          </div>
+
+          <div class="region-arrow">
+            ›
+          </div>
+
+        </article>
+
+
+
+        <article class="region">
+
+          <img
+            src="https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?auto=format&fit=crop&w=400&q=85"
+          >
+
+          <div>
+
+            <h4>
+              Sicilia
+            </h4>
+
+            <p>
+              Palermo · Catania · Siracusa · Agrigento · Etna.
+            </p>
+
+          </div>
+
+          <div class="region-arrow">
+            ›
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- HISTORIA -->
+
+    <section
+      class="section"
+      id="italyHistory"
+    >
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="section-eyebrow">
+            Tiempo
+          </div>
+
+          <h2 class="section-title">
+            La historia de Italia
+          </h2>
+
+        </div>
+
+      </div>
+
 
       <div class="timeline">
 
-        <div class="timeline-item">
-          <div class="timeline-time">07:10</div>
-          <div class="timeline-text">
-            Desayuno rápido: café y algo dulce.
-          </div>
-        </div>
 
         <div class="timeline-item">
-          <div class="timeline-time">08:00</div>
-          <div class="timeline-text">
-            Bicicleta hacia el instituto.
+
+          <div class="timeline-date">
+            Antes de Roma
           </div>
+
+          <div class="timeline-title">
+            Etruscos, griegos y pueblos itálicos
+          </div>
+
+          <div class="timeline-text">
+            La península italiana ya era un mosaico cultural
+            mucho antes del dominio romano.
+          </div>
+
         </div>
 
-        <div class="timeline-item">
-          <div class="timeline-time">13:45</div>
-          <div class="timeline-text">
-            Almuerzo en casa de sus padres.
-          </div>
-        </div>
+
 
         <div class="timeline-item">
-          <div class="timeline-time">19:30</div>
-          <div class="timeline-text">
-            Aperitivo con amigos bajo los soportales del centro.
+
+          <div class="timeline-date">
+            753 a. C. — 476
           </div>
+
+          <div class="timeline-title">
+            Roma
+          </div>
+
+          <div class="timeline-text">
+            De una ciudad del Lacio a una potencia
+            que transformó política, lengua,
+            arquitectura y derecho.
+          </div>
+
+        </div>
+
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-date">
+            Edad Media
+          </div>
+
+          <div class="timeline-title">
+            Muchas Italias
+          </div>
+
+          <div class="timeline-text">
+            Ciudades-estado, repúblicas marítimas,
+            reinos, papado y poderes extranjeros.
+          </div>
+
+        </div>
+
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-date">
+            siglos XIV–XVI
+          </div>
+
+          <div class="timeline-title">
+            Renacimiento
+          </div>
+
+          <div class="timeline-text">
+            Florencia, Roma, Venecia y otras ciudades
+            se convierten en grandes centros artísticos e intelectuales.
+          </div>
+
+        </div>
+
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-date">
+            siglo XIX
+          </div>
+
+          <div class="timeline-title">
+            Unificación
+          </div>
+
+          <div class="timeline-text">
+            El Risorgimento termina construyendo
+            el Estado italiano moderno.
+          </div>
+
+        </div>
+
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-date">
+            siglo XX
+          </div>
+
+          <div class="timeline-title">
+            Fascismo, guerra y República
+          </div>
+
+          <div class="timeline-text">
+            Dictadura, Segunda Guerra Mundial,
+            reconstrucción y crecimiento económico.
+          </div>
+
+        </div>
+
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-date">
+            Hoy
+          </div>
+
+          <div class="timeline-title">
+            La Italia contemporánea
+          </div>
+
+          <div class="timeline-text">
+            Una potencia industrial y cultural
+            marcada por diferencias territoriales,
+            envejecimiento y transformaciones sociales.
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- VIDA -->
+
+    <section
+      class="section"
+      id="italyLife"
+    >
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="section-eyebrow">
+            Vida cotidiana
+          </div>
+
+          <h2 class="section-title">
+            Hoy eres Giulia
+          </h2>
+
+        </div>
+
+        <button class="section-action">
+          cambiar ›
+        </button>
+
+      </div>
+
+
+      <article class="life-story">
+
+        <div class="person">
+
+          <img
+            class="person-photo"
+            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=85"
+          >
+
+          <div>
+
+            <strong>
+              Giulia · 27 años
+            </strong>
+
+            <small>
+              Diseñadora · Milán · clase media
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <div class="day">
+
+          <div class="day-row">
+
+            <div class="day-time">
+              07:15
+            </div>
+
+            <div class="day-copy">
+              Se levanta en el piso que comparte con otra persona
+              al norte de Milán.
+            </div>
+
+          </div>
+
+
+          <div class="day-row">
+
+            <div class="day-time">
+              08:05
+            </div>
+
+            <div class="day-copy">
+              Café rápido en el bar de abajo
+              y metro hacia el centro.
+            </div>
+
+          </div>
+
+
+          <div class="day-row">
+
+            <div class="day-time">
+              13:10
+            </div>
+
+            <div class="day-copy">
+              Sale a comer con dos compañeras de trabajo.
+            </div>
+
+          </div>
+
+
+          <div class="day-row">
+
+            <div class="day-time">
+              18:45
+            </div>
+
+            <div class="day-copy">
+              Aperitivo después del trabajo.
+              En Milán forma parte importante de la vida social.
+            </div>
+
+          </div>
+
+
+          <div class="day-row">
+
+            <div class="day-time">
+              23:30
+            </div>
+
+            <div class="day-copy">
+              Vuelve a casa.
+              Mañana empieza otra vez.
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </section>
+
+
+
+    <!-- CULTURA -->
+
+    <section
+      class="section"
+      id="italyCulture"
+    >
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="section-eyebrow">
+            Cultura
+          </div>
+
+          <h2 class="section-title">
+            Mira, escucha, lee
+          </h2>
+
         </div>
 
       </div>
+
+
+      <div class="culture-grid">
+
+
+        <article class="culture-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=600&q=85"
+          >
+
+          <div class="culture-card-content">
+
+            <small>
+              Arte
+            </small>
+
+            <h4>
+              Renacimiento
+            </h4>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="culture-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=85"
+          >
+
+          <div class="culture-card-content">
+
+            <small>
+              Música
+            </small>
+
+            <h4>
+              Italia por décadas
+            </h4>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="culture-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=85"
+          >
+
+          <div class="culture-card-content">
+
+            <small>
+              Cine
+            </small>
+
+            <h4>
+              Neorrealismo
+            </h4>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="culture-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=85"
+          >
+
+          <div class="culture-card-content">
+
+            <small>
+              Moda
+            </small>
+
+            <h4>
+              Milán
+            </h4>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="culture-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&w=600&q=85"
+          >
+
+          <div class="culture-card-content">
+
+            <small>
+              Arquitectura
+            </small>
+
+            <h4>
+              Iglesias
+            </h4>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="culture-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=85"
+          >
+
+          <div class="culture-card-content">
+
+            <small>
+              Literatura
+            </small>
+
+            <h4>
+              Escritores
+            </h4>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- VIAJE TEMPORAL -->
+
+    <section class="section">
+
+      <article class="time-travel">
+
+        <h3>
+          Viaja en el tiempo.
+        </h3>
+
+        <p>
+          Elige una ciudad y un año.
+          Descubre qué ocurría,
+          qué sonaba, qué se veía
+          y cómo vivía la gente.
+        </p>
+
+
+        <div class="time-controls">
+
+          <select class="fake-select" id="citySelect">
+
+            <option>
+              Roma
+            </option>
+
+            <option>
+              Milán
+            </option>
+
+            <option>
+              Florencia
+            </option>
+
+            <option>
+              Nápoles
+            </option>
+
+          </select>
+
+
+          <select class="fake-select" id="yearSelect">
+
+            <option>
+              2026
+            </option>
+
+            <option>
+              1990
+            </option>
+
+            <option>
+              1962
+            </option>
+
+            <option>
+              1920
+            </option>
+
+            <option>
+              1500
+            </option>
+
+            <option>
+              100
+            </option>
+
+          </select>
+
+
+          <button
+            class="time-go"
+            onclick="timeTravel()"
+          >
+            Entrar en esta época →
+          </button>
+
+        </div>
+
+      </article>
+
+    </section>
+
+
+  </main>
+
+</section>
+
+
+
+<!-- =====================================================
+     DETALLE GENÉRICO
+===================================================== -->
+
+<section
+  id="detailScreen"
+  class="screen detail-screen"
+>
+
+  <div class="detail-image">
+
+    <img
+      id="detailPhoto"
+      src=""
+    >
+
+    <button
+      class="back-btn detail-back"
+      onclick="backFromDetail()"
+    >
+      ←
+    </button>
+
+
+    <div class="detail-title">
+
+      <small id="detailType">
+        HISTORIA
+      </small>
+
+      <h1 id="detailName">
+        Roma
+      </h1>
 
     </div>
 
   </div>
 
+
+  <main class="content">
+
+
+    <article class="article">
+
+      <small>
+        ENTRAR
+      </small>
+
+      <h3 id="detailSubtitle">
+        Una ciudad construida encima de sí misma.
+      </h3>
+
+      <p>
+        Esta pantalla será el punto de entrada
+        para recorrer cada elemento de Mundo.
+        Desde aquí podrás saltar a lugares,
+        personas, acontecimientos,
+        edificios, obras, canciones,
+        películas y épocas relacionadas.
+      </p>
+
+    </article>
+
+
+    <article class="article">
+
+      <small>
+        RECORRER
+      </small>
+
+      <h3>
+        Sigue bajando una capa
+      </h3>
+
+      <p id="detailPath">
+        Mundo → Europa → Italia → Lazio → Roma
+      </p>
+
+    </article>
+
+
+    <article class="article">
+
+      <small>
+        CONEXIONES
+      </small>
+
+      <h3>
+        Todo conduce a otra cosa
+      </h3>
+
+      <p>
+        Un edificio puede llevarte a su arquitecto.
+        El arquitecto a un movimiento.
+        El movimiento a otra ciudad.
+        La ciudad a una película.
+        La película a una década.
+        Y la década a cómo vivía la gente.
+      </p>
+
+    </article>
+
+
+    <section class="section">
+
+      <div class="culture-grid">
+
+
+        <article class="culture-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=500&q=85"
+          >
+
+          <div class="culture-card-content">
+
+            <small>
+              Lugar
+            </small>
+
+            <h4>
+              Calles
+            </h4>
+
+          </div>
+
+        </article>
+
+
+        <article class="culture-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&w=500&q=85"
+          >
+
+          <div class="culture-card-content">
+
+            <small>
+              Arquitectura
+            </small>
+
+            <h4>
+              Edificios
+            </h4>
+
+          </div>
+
+        </article>
+
+
+        <article class="culture-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=500&q=85"
+          >
+
+          <div class="culture-card-content">
+
+            <small>
+              Arte
+            </small>
+
+            <h4>
+              Obras
+            </h4>
+
+          </div>
+
+        </article>
+
+
+        <article class="culture-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=500&q=85"
+          >
+
+          <div class="culture-card-content">
+
+            <small>
+              Música
+            </small>
+
+            <h4>
+              Escuchar
+            </h4>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+  </main>
+
 </section>
+
+
+
+<!-- =====================================================
+     NAVEGACIÓN
+===================================================== -->
+
+<nav
+  id="bottomNav"
+  class="bottom-nav"
+>
+
+  <button
+    class="nav-btn active"
+    onclick="navHome(this)"
+  >
+    <span>◎</span>
+    Mundo
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="navPlaces(this)"
+  >
+    <span>⌖</span>
+    Lugares
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="navTime(this)"
+  >
+    <span>◷</span>
+    Tiempo
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="navLife(this)"
+  >
+    <span>◌</span>
+    Vida
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="navCulture(this)"
+  >
+    <span>◈</span>
+    Cultura
+  </button>
+
+</nav>
+
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+  id="randomModal"
+  class="modal"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-label">
+      DESCUBRIMIENTO ALEATORIO
+    </div>
+
+    <h2 id="randomTitle">
+      Tokio · 1986
+    </h2>
+
+    <p id="randomText">
+      Es viernes por la noche.
+      Descubre qué escucha una joven de 22 años,
+      cómo viste y por dónde sale.
+    </p>
+
+
+    <div class="modal-actions">
+
+      <button onclick="closeRandom()">
+        Otro
+      </button>
+
+      <button
+        class="modal-primary"
+        onclick="enterRandom()"
+      >
+        Entrar →
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 
 <script>
 
-const views = [
-  "countriesView",
-  "lifeView",
-  "musicView",
-  "artView",
-  "cinemaView",
-  "fashionView"
+/* =========================================================
+   DATOS
+========================================================= */
+
+const discoveries = [
+
+  {
+    title:"Tokio · 1986",
+    text:"Es viernes por la noche. Descubre qué escucha una joven de 22 años, cómo viste y por dónde sale.",
+    image:"https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1000&q=88"
+  },
+
+  {
+    title:"París · 1927",
+    text:"Una estudiante de arte cruza Montparnasse. En los cafés se mezclan artistas, escritores y músicos.",
+    image:"https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1000&q=88"
+  },
+
+  {
+    title:"Roma · 1962",
+    text:"Es verano. Vespa, cine, cafés, nuevas costumbres y una ciudad entre tradición y modernidad.",
+    image:"https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=1000&q=88"
+  },
+
+  {
+    title:"Florencia · 1504",
+    text:"Miguel Ángel termina el David. Recorre las calles, talleres y tensiones políticas de la ciudad.",
+    image:"https://images.unsplash.com/photo-1544986581-efac024faf62?auto=format&fit=crop&w=1000&q=88"
+  },
+
+  {
+    title:"Nueva York · 1977",
+    text:"Disco, punk, crisis urbana y noches que terminarán cambiando la cultura popular.",
+    image:"https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?auto=format&fit=crop&w=1000&q=88"
+  }
+
 ];
 
-function changeView(viewId, navIndex){
+let currentRandom = discoveries[0];
 
-  document.querySelectorAll(".view").forEach(view=>{
-    view.classList.remove("active");
-  });
+let previousScreen = "italyScreen";
 
-  document.getElementById(viewId).classList.add("active");
 
-  document.querySelectorAll(".nav-btn").forEach(btn=>{
-    btn.classList.remove("active");
-  });
+/* =========================================================
+   SCREENS
+========================================================= */
 
-  document.querySelectorAll(".nav-btn")[navIndex]
+function showScreen(id){
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen=>{
+
+      screen.classList.remove("active");
+
+    });
+
+  document
+    .getElementById(id)
     .classList.add("active");
 
   window.scrollTo({
     top:0,
-    behavior:"smooth"
+    behavior:"instant"
   });
 
 }
+
 
 function openItaly(){
 
+  showScreen("italyScreen");
+
+}
+
+
+function goHome(){
+
+  showScreen("homeScreen");
+
+  setNav(0);
+
+}
+
+
+function scrollToExplore(){
+
   document
-    .getElementById("countryDetail")
-    .classList.add("show");
-
-  document.body.style.overflow="hidden";
+    .getElementById("explore")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
 
 }
 
-function closeCountry(){
+
+function scrollToId(id){
 
   document
-    .getElementById("countryDetail")
-    .classList.remove("show");
-
-  document.body.style.overflow="";
-
-}
-
-function filterCountries(){
-
-  const value =
-    document
-      .getElementById("searchCountry")
-      .value
-      .toLowerCase();
-
-  document.querySelectorAll(".country").forEach(card=>{
-
-    const name =
-      card.dataset.name.toLowerCase();
-
-    if(name.includes(value)){
-      card.style.display="";
-    }else{
-      card.style.display="none";
-    }
-
-  });
+    .getElementById(id)
+    .scrollIntoView({
+      behavior:"smooth"
+    });
 
 }
 
-function randomCountry(){
 
-  const countries = [
-    "Italia",
-    "Japón",
-    "Marruecos",
-    "Francia",
-    "México"
-  ];
+/* =========================================================
+   DETAIL
+========================================================= */
 
-  const country =
-    countries[
-      Math.floor(Math.random() * countries.length)
+function openDetail(
+  name,
+  subtitle,
+  type,
+  image
+){
+
+  const active =
+    document.querySelector(".screen.active");
+
+  if(active){
+    previousScreen = active.id;
+  }
+
+  document.getElementById("detailName").textContent =
+    name;
+
+  document.getElementById("detailSubtitle").textContent =
+    subtitle;
+
+  document.getElementById("detailType").textContent =
+    type;
+
+  document.getElementById("detailPhoto").src =
+    image;
+
+  document.getElementById("detailPath").textContent =
+    "Mundo → " + type + " → " + name;
+
+  showScreen("detailScreen");
+
+}
+
+
+function backFromDetail(){
+
+  showScreen(previousScreen);
+
+}
+
+
+/* =========================================================
+   RANDOM
+========================================================= */
+
+function randomDiscovery(){
+
+  const random =
+    discoveries[
+      Math.floor(
+        Math.random() *
+        discoveries.length
+      )
     ];
 
-  if(country === "Italia"){
+  currentRandom = random;
+
+  document.getElementById("randomTitle").textContent =
+    random.title;
+
+  document.getElementById("randomText").textContent =
+    random.text;
+
+  document
+    .getElementById("randomModal")
+    .classList.add("show");
+
+}
+
+
+function closeRandom(){
+
+  randomDiscovery();
+
+}
+
+
+function enterRandom(){
+
+  document
+    .getElementById("randomModal")
+    .classList.remove("show");
+
+  openDetail(
+    currentRandom.title,
+    currentRandom.text,
+    "DESCUBRIMIENTO",
+    currentRandom.image
+  );
+
+}
+
+
+function randomItaly(){
+
+  const italyItems = [
+
+    {
+      name:"Florencia · 1504",
+      subtitle:"El David está a punto de convertirse en símbolo de la ciudad.",
+      type:"ITALIA · RENACIMIENTO",
+      image:"https://images.unsplash.com/photo-1544986581-efac024faf62?auto=format&fit=crop&w=1000&q=88"
+    },
+
+    {
+      name:"Milán · 1985",
+      subtitle:"Diseño, moda y una ciudad que acelera.",
+      type:"ITALIA · VIDA",
+      image:"https://images.unsplash.com/photo-1533676802871-eca1ae998cd5?auto=format&fit=crop&w=1000&q=88"
+    },
+
+    {
+      name:"Roma · 1962",
+      subtitle:"Una noche de verano en la capital italiana.",
+      type:"ITALIA · TIEMPO",
+      image:"https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=1000&q=88"
+    }
+
+  ];
+
+  const item =
+    italyItems[
+      Math.floor(
+        Math.random() *
+        italyItems.length
+      )
+    ];
+
+  openDetail(
+    item.name,
+    item.subtitle,
+    item.type,
+    item.image
+  );
+
+}
+
+
+/* =========================================================
+   TIME TRAVEL
+========================================================= */
+
+function timeTravel(){
+
+  const city =
+    document
+      .getElementById("citySelect")
+      .value;
+
+  const year =
+    document
+      .getElementById("yearSelect")
+      .value;
+
+  openDetail(
+    city + " · " + year,
+    "Entra en " + city + " tal y como era en " + year + ".",
+    "VIAJE EN EL TIEMPO",
+    "https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=1000&q=88"
+  );
+
+}
+
+
+function showTimeModal(){
+
+  showScreen("italyScreen");
+
+  setTimeout(()=>{
+
+    document
+      .querySelector(".time-travel")
+      .scrollIntoView({
+        behavior:"smooth"
+      });
+
+  },100);
+
+}
+
+
+/* =========================================================
+   BUSCADOR
+========================================================= */
+
+function focusSearch(){
+
+  document
+    .getElementById("explore")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+  setTimeout(()=>{
+
+    document
+      .getElementById("globalSearch")
+      .focus();
+
+  },500);
+
+}
+
+
+function performSearch(){
+
+  const query =
+    document
+      .getElementById("globalSearch")
+      .value
+      .trim();
+
+  if(!query){
+    return;
+  }
+
+  const q =
+    query.toLowerCase();
+
+  if(
+    q.includes("italia") ||
+    q.includes("roma") ||
+    q.includes("florencia") ||
+    q.includes("milán") ||
+    q.includes("milan")
+  ){
     openItaly();
-  }else{
-    alert(
-      "Hoy viajamos a " +
-      country +
-      " ✦\n\nLa ficha completa de este país será la siguiente que añadiremos."
-    );
+    return;
+  }
+
+  alert(
+    "Buscando: " +
+    query +
+    "\n\nEste buscador será global: lugares, personas, obras, canciones, películas, épocas y acontecimientos."
+  );
+
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+function setNav(index){
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+  const buttons =
+    document.querySelectorAll(".nav-btn");
+
+  if(buttons[index]){
+    buttons[index].classList.add("active");
   }
 
 }
 
-/* pestañas del país */
+
+function navHome(btn){
+
+  showScreen("homeScreen");
+
+  setNav(0);
+
+}
+
+
+function navPlaces(btn){
+
+  showScreen("homeScreen");
+
+  setNav(1);
+
+  setTimeout(()=>{
+
+    document
+      .getElementById("countries")
+      .scrollIntoView({
+        behavior:"smooth"
+      });
+
+  },100);
+
+}
+
+
+function navTime(btn){
+
+  setNav(2);
+
+  showTimeModal();
+
+}
+
+
+function navLife(btn){
+
+  setNav(3);
+
+  openLife();
+
+}
+
+
+function navCulture(btn){
+
+  setNav(4);
+
+  openCulture();
+
+}
+
+
+function openLife(){
+
+  showScreen("italyScreen");
+
+  setNav(3);
+
+  setTimeout(()=>{
+
+    scrollToId("italyLife");
+
+  },100);
+
+}
+
+
+function openCulture(){
+
+  showScreen("italyScreen");
+
+  setNav(4);
+
+  setTimeout(()=>{
+
+    scrollToId("italyCulture");
+
+  },100);
+
+}
+
+
+/* =========================================================
+   CONTINENTES
+========================================================= */
 
 document
-  .querySelectorAll(".detail-tab")
-  .forEach(tab=>{
+  .querySelectorAll(".chip")
+  .forEach(chip=>{
 
-    tab.addEventListener("click",()=>{
+    chip.addEventListener("click",()=>{
 
       document
-        .querySelectorAll(".detail-tab")
-        .forEach(t=>{
-          t.classList.remove("active");
+        .querySelectorAll(".chip")
+        .forEach(c=>{
+          c.classList.remove("active");
         });
 
-      tab.classList.add("active");
+      chip.classList.add("active");
 
     });
 
